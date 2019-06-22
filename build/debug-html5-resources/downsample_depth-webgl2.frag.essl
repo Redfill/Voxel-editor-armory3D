@@ -1,0 +1,19 @@
+#version 300 es
+precision mediump float;
+precision highp int;
+
+uniform highp sampler2D texdepth;
+uniform highp vec2 screenSizeInv;
+
+in highp vec2 texCoord;
+out highp float fragColor;
+
+void main()
+{
+    highp float d0 = textureLod(texdepth, texCoord, 0.0).x;
+    highp float d1 = textureLod(texdepth, texCoord + vec2(screenSizeInv.x, 0.0), 0.0).x;
+    highp float d2 = textureLod(texdepth, texCoord + vec2(0.0, screenSizeInv.y), 0.0).x;
+    highp float d3 = textureLod(texdepth, texCoord + vec2(screenSizeInv.x, screenSizeInv.y), 0.0).x;
+    fragColor = max(max(d0, d1), max(d2, d3));
+}
+

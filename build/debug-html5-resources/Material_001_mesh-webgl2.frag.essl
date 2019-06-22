@@ -1,0 +1,18 @@
+#version 300 es
+precision mediump float;
+precision highp int;
+
+out highp vec4 fragColor;
+
+void main()
+{
+    highp vec3 basecol = vec3(1.0);
+    highp float roughness = 0.0;
+    highp float metallic = 1.0;
+    highp float occlusion = 1.0;
+    highp float specular = 1.0;
+    fragColor = vec4(basecol, 1.0);
+    highp vec3 _30 = pow(fragColor.xyz, vec3(0.4545454680919647216796875));
+    fragColor = vec4(_30.x, _30.y, _30.z, fragColor.w);
+}
+

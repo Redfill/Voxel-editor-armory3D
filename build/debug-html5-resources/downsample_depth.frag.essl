@@ -1,0 +1,19 @@
+#version 100
+#extension GL_EXT_shader_texture_lod : require
+precision mediump float;
+precision highp int;
+
+uniform highp sampler2D texdepth;
+uniform highp vec2 screenSizeInv;
+
+varying highp vec2 texCoord;
+
+void main()
+{
+    highp float d0 = texture2DLodEXT(texdepth, texCoord, 0.0).x;
+    highp float d1 = texture2DLodEXT(texdepth, texCoord + vec2(screenSizeInv.x, 0.0), 0.0).x;
+    highp float d2 = texture2DLodEXT(texdepth, texCoord + vec2(0.0, screenSizeInv.y), 0.0).x;
+    highp float d3 = texture2DLodEXT(texdepth, texCoord + vec2(screenSizeInv.x, screenSizeInv.y), 0.0).x;
+    gl_FragData[0] = max(max(d0, d1), max(d2, d3));
+}
+

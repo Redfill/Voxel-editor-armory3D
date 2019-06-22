@@ -1,0 +1,56 @@
+-cp /home/redfill/Documents/Armory/armsdk/Kha/Sources
+-cp /home/redfill/Documents/Armory/armsdk/Kha/Backends/Krom
+-cp /home/redfill/Bureau/game dev/voxel editor/Sources
+-cp /home/redfill/Documents/Armory/armsdk/armory/Sources
+-cp /home/redfill/Documents/Armory/armsdk/iron/Sources
+-cp /home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-kha
+-cp /home/redfill/Bureau/game dev/voxel editor/Libraries/haxe-format-vox
+-cp /home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-iron
+-cp /home/redfill/Documents/Armory/armsdk/lib/haxebullet/Sources
+-cp /home/redfill/Documents/Armory/armsdk/armory
+-cp /home/redfill/Documents/Armory/armsdk/iron
+-cp /home/redfill/Documents/Armory/armsdk/lib/haxebullet
+-D /home/redfill/Documents/Armory/armsdk/armory
+-D /home/redfill/Documents/Armory/armsdk/iron
+-D kex-vox-kha
+-D haxe-format-vox
+-D kex-vox-iron
+-D /home/redfill/Documents/Armory/armsdk/lib/haxebullet
+-D rp_renderer=Forward
+-D rp_background=Clear
+-D rp_gi=Off
+-D arm_physics
+-D arm_bullet
+-D arm_noembed
+-D arm_soundcompress
+-D arm_skin
+-D arm_particles_gpu
+-D arm_particles
+-D sys_krom
+-D sys_g1
+-D sys_g2
+-D sys_g3
+-D sys_g4
+-D sys_a1
+-D sys_a2
+-D kha_js
+-D kha_krom
+-D kha_krom_js
+-D kha_opengl
+-D kha_g1
+-D kha_g2
+-D kha_g3
+-D kha_g4
+-D kha_a1
+-D kha_a2
+-D kha
+-D kha_version=1810
+-D kha_project_name=voxel editor
+-js krom/krom.js.temp
+arm.Cursor
+--macro keep('arm.Cursor')
+armory.trait.physics.bullet.RigidBody
+--macro keep('armory.trait.physics.bullet.RigidBody')
+armory.trait.physics.bullet.PhysicsWorld
+--macro keep('armory.trait.physics.bullet.PhysicsWorld')
+-main Main

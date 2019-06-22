@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+	<!-- Output SWF options -->
+	<output>
+		<movie outputType="Application" />
+		<movie input="" />
+		<movie path="debug-html5/kha.js" />
+		<movie fps="30" />
+		<movie width="800" />
+		<movie height="600" />
+		<movie version="16" />
+		<movie minorVersion="0" />
+		<movie platform="JavaScript" />
+		<movie background="#ffffff" />
+		<movie preferredSDK="../../../../Documents/Armory/armsdk/Kha/Tools/haxe" />
+	</output>
+	<!-- Other classes to be compiled into your SWF -->
+	<classpaths>
+		<class path="../../../../Documents/Armory/armsdk/Kha/Sources" />
+		<class path="../../../../Documents/Armory/armsdk/Kha/Backends/HTML5" />
+		<class path="../Sources" />
+		<class path="../../../../Documents/Armory/armsdk/armory/Sources" />
+		<class path="../../../../Documents/Armory/armsdk/iron/Sources" />
+		<class path="../Libraries/kex-vox-kha" />
+		<class path="../Libraries/haxe-format-vox" />
+		<class path="../Libraries/kex-vox-iron" />
+		<class path="../../../../Documents/Armory/armsdk/lib/haxebullet/Sources" />
+		<class path="../../../../Documents/Armory/armsdk/armory" />
+		<class path="../../../../Documents/Armory/armsdk/iron" />
+		<class path="../../../../Documents/Armory/armsdk/lib/haxebullet" />
+	</classpaths>
+	<!-- Build options -->
+	<build>
+		<option directives="" />
+		<option flashStrict="False" />
+		<option noInlineOnDebug="False" />
+		<option mainClass="Main" />
+		<option enabledebug="False" />
+		<option additional="-D /home/redfill/Documents/Armory/armsdk/armory&#xA;-D /home/redfill/Documents/Armory/armsdk/iron&#xA;-D kex-vox-kha&#xA;-D haxe-format-vox&#xA;-D kex-vox-iron&#xA;-D /home/redfill/Documents/Armory/armsdk/lib/haxebullet&#xA;-D rp_renderer=Forward&#xA;-D rp_background=Clear&#xA;-D rp_gi=Off&#xA;-D arm_physics&#xA;-D arm_bullet&#xA;-D arm_noembed&#xA;-D arm_soundcompress&#xA;-D arm_skin&#xA;-D arm_particles_gpu&#xA;-D arm_particles&#xA;-D sys_g1&#xA;-D sys_g2&#xA;-D sys_g3&#xA;-D sys_a1&#xA;-D sys_a2&#xA;-D kha_js&#xA;-D kha_g1&#xA;-D kha_g2&#xA;-D kha_g3&#xA;-D kha_a1&#xA;-D kha_a2&#xA;-D canvas_id=khanvas&#xA;-D script_name=kha&#xA;-D sys_g4&#xA;-D kha_g4&#xA;-D kha_webgl&#xA;-D sys_debug-html5&#xA;-D kha_debug-html5&#xA;-D kha_debug-html5_js&#xA;-D sys_debug_html5&#xA;-D kha_debug_html5&#xA;-D kha_html5&#xA;-D kha&#xA;-D kha_version=1810&#xA;-D kha_project_name=voxel editor&#xA;-D kha_output=&quot;/home/redfill/Bureau/game dev/voxel editor/build/debug-html5/kha.js&quot;&#xA;armory.trait.physics.bullet.RigidBody&#xA;--macro keep('armory.trait.physics.bullet.RigidBody')&#xA;arm.Cursor&#xA;--macro keep('arm.Cursor')&#xA;armory.trait.physics.bullet.PhysicsWorld&#xA;--macro keep('armory.trait.physics.bullet.PhysicsWorld')&#xA;-debug&#xA;" />
+	</build>
+	<!-- haxelib libraries -->
+	<haxelib>
+		<!-- example: <library name="..." /> -->
+	</haxelib>
+	<!-- Class files to compile (other referenced classes will automatically be included) -->
+	<compileTargets>
+		<compile path="..\Sources\Main.hx" />
+	</compileTargets>
+	<!-- Paths to exclude from the Project Explorer tree -->
+	<hiddenPaths>
+		<!-- example: <hidden path="..." /> -->
+	</hiddenPaths>
+	<!-- Executed before build -->
+	<preBuildCommand />
+	<!-- Executed after build -->
+	<postBuildCommand alwaysRun="False" />
+	<!-- Other project options -->
+	<options>
+		<option showHiddenPaths="False" />
+		<option testMovie="Webserver" />
+		<option testMovieCommand="debug-html5/index.html" />
+	</options>
+	<!-- Plugin storage -->
+	<storage />
+</project>
