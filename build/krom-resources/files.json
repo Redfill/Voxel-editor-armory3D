@@ -17,57 +17,6 @@
 			"types": []
 		},
 		{
-			"name": "Material_001_mesh_vert",
-			"files": [
-				"Material_001_mesh.vert.glsl"
-			],
-			"type": "shader",
-			"inputs": [
-				{
-					"name": "pos",
-					"type": "vec4"
-				},
-				{
-					"name": "gl_VertexID",
-					"type": "int"
-				},
-				{
-					"name": "gl_InstanceID",
-					"type": "int"
-				}
-			],
-			"outputs": [],
-			"uniforms": [
-				{
-					"name": "WVP",
-					"type": "mat4"
-				}
-			],
-			"types": [
-				{
-					"name": "gl_PerVertex",
-					"members": [
-						{
-							"type": "vec4",
-							"name": "gl_Position"
-						},
-						{
-							"type": "float",
-							"name": "gl_PointSize"
-						},
-						{
-							"type": "float[]",
-							"name": "gl_ClipDistance"
-						},
-						{
-							"type": "float[]",
-							"name": "gl_CullDistance"
-						}
-					]
-				}
-			]
-		},
-		{
 			"name": "Material_002_mesh_frag",
 			"files": [
 				"Material_002_mesh.frag.glsl"

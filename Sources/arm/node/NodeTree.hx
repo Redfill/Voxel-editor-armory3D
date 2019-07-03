@@ -60,10 +60,6 @@ package arm.node;
 		_SpawnObject.addInput(new armory.logicnode.BooleanNode(this, false), 0);
 		_SpawnObject.addOutputs([new armory.logicnode.NullNode(this)]);
 		_SpawnObject.addOutputs([new armory.logicnode.ObjectNode(this, "")]);
-		var _OnMouse = new armory.logicnode.OnMouseNode(this);
-		_OnMouse.property0 = "Down";
-		_OnMouse.property1 = "middle";
-		_OnMouse.addOutputs([new armory.logicnode.NullNode(this)]);
 		var _LookAt = new armory.logicnode.LookAtNode(this);
 		_LookAt.addInput(new armory.logicnode.VectorNode(this, 0.0, 0.0, 0.0), 0);
 		_LookAt.addInput(new armory.logicnode.VectorNode(this, 0.0, 0.0, 0.0), 0);
@@ -71,5 +67,10 @@ package arm.node;
 		var _ScreenToWorldSpace = new armory.logicnode.ScreenToWorldSpaceNode(this);
 		_ScreenToWorldSpace.addInput(new armory.logicnode.VectorNode(this, 0.0, 0.0, 0.0), 0);
 		_ScreenToWorldSpace.addOutputs([new armory.logicnode.VectorNode(this, 0.0, 0.0, 0.0)]);
+		var _Mouse = new armory.logicnode.MergedMouseNode(this);
+		_Mouse.property0 = "Down";
+		_Mouse.property1 = "middle";
+		_Mouse.addOutputs([new armory.logicnode.NullNode(this)]);
+		_Mouse.addOutputs([new armory.logicnode.BooleanNode(this, false)]);
 	}
 }

@@ -8,7 +8,7 @@ import kha.audio2.ogg.vorbis.data.Page;
 import js.Error.RangeError;
 import iron.math.Vec3;
 import iron.math.Quat;
-import iron.math.Math;
+
 import iron.object.Object;
 import iron.object.Transform;
 import iron.Scene;
@@ -20,16 +20,17 @@ import armory.trait.physics.RigidBody;
 import iron.math.RayCaster;
 
 class Cursor extends iron.Trait {
+	
 	var XR = 0.0;
-	var ZR = Math.PI_2/2;
+	var ZR = (Math.PI*2)/2;
 	var F = 20.0;
 	var grid:Array<Array<Array<Int> > > = [for (x in 0...10) [for (y in 0...10)  [for (z in 0...10)0]    ]          ];
 
 	public function setVox(T){
 		var loc = new Vec4();
-		loc.x = Std.int(raymarch().x);
-		loc.y = Std.int(raymarch().y);
-		loc.z = Math.round(raymarch().z);
+		loc.x = Std.int(ray().x);
+		loc.y = Std.int(ray().y);
+		loc.z = Std.int(ray().z);
 		if (loc.x < 0){
 				loc.x = 0;
 		}
@@ -103,21 +104,6 @@ class Cursor extends iron.Trait {
 		}
 		//trace(Scene.active.meshes[0].);
 	}
-	public function pickmin(array:Array<Float>){
-
-	var mn = array[0];
-		for (i in 0...array.length) {
-
-			if (array[i]<mn) {
-
-			mn = array[i];
-
-			}
-
-		}
-		return mn;
-
-	}
 	
 	public function GetDir(){
 		var mo = Input.getMouse();
@@ -127,97 +113,41 @@ class Cursor extends iron.Trait {
 		
 	}
 	
-	public function CubeDist(p:Vec4,c:Vec4,s:Vec4){
-		var o = new Vec4();
-		var max = Math.max;
-		var min = Math.min;
-		o.x = Math.abs(p.x-c.x) -s.x;
-		o.y = Math.abs(p.y-c.y) -s.y;
-		o.z = Math.abs(p.z-c.z) -s.z;
-		//var n = max(max(min(o.x,0.0),min(o.y,0.0)),min(o.z,0.0));
-		var n = min(max(o.x,max(o.y,o.z)),0.0);
-		o.x = max(o.x,0.0);
-		o.y = max(o.y,0.0);
-		o.z = max(o.z,0.0);
-		var ud = o.length();
-		return ud ;
-	
-	}
-
-	public function GetDist(p){
-		var test = new Vec4();
-		var s = new Vec4();
-		var dist = [];
-		s.x = 0.5;
-		s.y = 0.5;
-		s.z = 0.5;
-		test.x = 1;
-		test.y = 1;
-		test.z = 1;
-		for (x in 0...Scene.active.meshes.length){
-			//trace(Scene.active.meshes[x].name);
-			//trace(x);
-			var obj = Scene.active.meshes[x].name; 
-			if (StringTools.endsWith(obj, "v")){
-				dist.push(CubeDist(p,Scene.active.getChild(obj).transform.loc,s));
-				
-			};
-		}
-		dist.push(Math.abs(p.z));
-		if (Math.PI/2 < Nav(4) || Nav(4) < -Math.PI/2){
-			dist.push(Math.abs(Math.pow(Math.pow((grid.length-p.y),2),0.5)));
-		}
-		if (Math.PI < Nav(4) || Nav(4) < 0.0){
-			dist.push(Math.abs(Math.pow(Math.pow((grid.length-p.x),2),0.5)));
-		}
-		if (Nav(4)> 0.0){
-			dist.push(Math.abs(p.x));
-		}
-		if (Nav(4)> -Math.PI/2 && Nav(4)< Math.PI/2){
-			dist.push(Math.abs(p.y));
-		}
-		return pickmin(dist);
-		//return Math.min(CubeDist(p,test,s),Math.abs(p.z));
-	}
-
-	public function raymarch(){
-		var mstep = 100;
-		var hit = 0.001;
+	public function ray(){
 		var cam = Scene.active.getCamera("cam");
-		var ro = cam.transform.loc;
-		//var rd = cam.transform.look().normalize();
-		//var rd = Nav(4);
-		var rd = GetDir();
-		var dori = 0.0;
+		var mdis = F + F/2;
+		var step = 0;
+		var hit = false;
 		var p = new Vec4();
-		var ds = 0.0;
-		var st = 0;
-		for (i in 0...mstep){
-			p.x = ro.x + (dori*rd.x);
-			p.y = ro.y + (dori*rd.y);
-			p.z = ro.z + (dori*rd.z);
-			ds = GetDist(p);
-			dori += ds;
-			st += 1;
-			
-			if (ds < hit) break;
-		}
-		//trace(st);
-		return p;
-		
-	
-	}
-		public function intbound(s:Float, ds:Float){
-			if (ds < 0){
-				s *= -1 ;
-				ds *= -1 ;
+		var rd = GetDir();
+		var ro = cam.transform.loc;
+		for (i in 0...1000){
+			p.x = ro.x + (rd.x *step * 0.1);
+			p.y = ro.y + (rd.y *step* 0.1);
+			p.z = ro.z + (rd.z *step* 0.1);
+			step += 1;
+			if(p.z < 0.0){
+				p.z = 0.0;
+				break;
 			}
-			s = Math.mod(s,1);
-			return (1-s)/ds;
+			if (p.x > 0.0 && p.x < grid.length && p.y > 0.0 && p.y < grid.length && p.z < grid.length){
+				if ( grid[Std.int(p.x)][Std.int(p.y)][Std.int(p.z)] == 1){
+						step -= 2;
+						p.x = ro.x + (rd.x *step * 0.1);
+						p.y = ro.y + (rd.y *step* 0.1);
+						p.z = ro.z + (rd.z *step* 0.1);
+						if(p.z < 0.0){
+							p.z = 0.0;
+						}
+						
+				}
+			}
+			
 		}
-	public function sign(x:Float):Float{
-			return x < 0 ? -1:1;
-		}
+		//trace(p);
+		return p;
+	}
+		
 
 	
 
@@ -258,8 +188,8 @@ class Cursor extends iron.Trait {
 			if (ZR < 0 ){
 				ZR = 0.000000001;
 			}
-			if (ZR > Math.PI_2){
-				ZR = Math.PI_2+0.000001;
+			if (ZR > (Math.PI/2)){
+				ZR = (Math.PI/2)+0.000001;
 			}
 
 			//rot.x = ZR;//+ mo.movementY*0.005;
@@ -312,9 +242,9 @@ class Cursor extends iron.Trait {
 			var key = Input.getKeyboard();
 			var select:iron.object.Object = iron.Scene.active.getChild("sel");
 			var posi:Vec4 = new Vec4();
-			posi.x = Std.int(raymarch().x);
-			posi.y = Std.int(raymarch().y);
-			posi.z = Math.round(raymarch().z);
+			posi.x = Std.int(ray().x);
+			posi.y = Std.int(ray().y);
+			posi.z = Std.int(ray().z);
 			if (posi.x < 0){
 				posi.x = 0;
 			}
@@ -358,7 +288,7 @@ class Cursor extends iron.Trait {
 				SetGrid(20);
 			}
 			
-			//trace(Raycast(Scene.active.getCamera("cam").transform.loc,GetDir()));
+			
 			
 		});
 

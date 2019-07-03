@@ -4,7 +4,7 @@
 	<output>
 		<movie outputType="Application" />
 		<movie input="" />
-		<movie path="debug-html5/kha.js" />
+		<movie path="krom/krom.js.temp" />
 		<movie fps="30" />
 		<movie width="800" />
 		<movie height="600" />
@@ -17,7 +17,7 @@
 	<!-- Other classes to be compiled into your SWF -->
 	<classpaths>
 		<class path="../../../../Documents/Armory/armsdk/Kha/Sources" />
-		<class path="../../../../Documents/Armory/armsdk/Kha/Backends/HTML5" />
+		<class path="../../../../Documents/Armory/armsdk/Kha/Backends/Krom" />
 		<class path="../Sources" />
 		<class path="../../../../Documents/Armory/armsdk/armory/Sources" />
 		<class path="../../../../Documents/Armory/armsdk/iron/Sources" />
@@ -36,7 +36,7 @@
 		<option noInlineOnDebug="False" />
 		<option mainClass="Main" />
 		<option enabledebug="False" />
-		<option additional="-D hxcpp_smart_strings&#xA;-D /home/redfill/Documents/Armory/armsdk/armory&#xA;-D /home/redfill/Documents/Armory/armsdk/iron&#xA;-D kex-vox-kha&#xA;-D haxe-format-vox&#xA;-D kex-vox-iron&#xA;-D /home/redfill/Documents/Armory/armsdk/lib/haxebullet&#xA;-D rp_renderer=Forward&#xA;-D rp_background=Clear&#xA;-D arm_audio&#xA;-D arm_physics&#xA;-D arm_bullet&#xA;-D arm_noembed&#xA;-D arm_soundcompress&#xA;-D arm_skin&#xA;-D arm_particles&#xA;-D sys_g1&#xA;-D sys_g2&#xA;-D sys_g3&#xA;-D sys_a1&#xA;-D sys_a2&#xA;-D kha_js&#xA;-D kha_g1&#xA;-D kha_g2&#xA;-D kha_g3&#xA;-D kha_a1&#xA;-D kha_a2&#xA;-D canvas_id=khanvas&#xA;-D script_name=kha&#xA;-D sys_g4&#xA;-D kha_g4&#xA;-D kha_webgl&#xA;-D sys_debug-html5&#xA;-D kha_debug-html5&#xA;-D kha_debug-html5_js&#xA;-D sys_debug_html5&#xA;-D kha_debug_html5&#xA;-D kha_html5&#xA;-D kha&#xA;-D kha_version=1810&#xA;-D kha_project_name=voxel editor&#xA;-D kha_output=&quot;/home/redfill/Bureau/game dev/voxel editor/build/debug-html5/kha.js&quot;&#xA;arm.Cursor&#xA;--macro keep('arm.Cursor')&#xA;armory.trait.physics.bullet.PhysicsWorld&#xA;--macro keep('armory.trait.physics.bullet.PhysicsWorld')&#xA;armory.trait.physics.bullet.RigidBody&#xA;--macro keep('armory.trait.physics.bullet.RigidBody')&#xA;-debug&#xA;" />
+		<option additional="-D hxcpp_smart_strings&#xA;-D /home/redfill/Documents/Armory/armsdk/armory&#xA;-D /home/redfill/Documents/Armory/armsdk/iron&#xA;-D kex-vox-kha&#xA;-D haxe-format-vox&#xA;-D kex-vox-iron&#xA;-D /home/redfill/Documents/Armory/armsdk/lib/haxebullet&#xA;-D rp_renderer=Forward&#xA;-D rp_background=Clear&#xA;-D arm_audio&#xA;-D arm_physics&#xA;-D arm_bullet&#xA;-D arm_noembed&#xA;-D arm_soundcompress&#xA;-D arm_skin&#xA;-D arm_particles&#xA;-D sys_krom&#xA;-D sys_g1&#xA;-D sys_g2&#xA;-D sys_g3&#xA;-D sys_g4&#xA;-D sys_a1&#xA;-D sys_a2&#xA;-D kha_js&#xA;-D kha_krom&#xA;-D kha_krom_js&#xA;-D kha_opengl&#xA;-D kha_g1&#xA;-D kha_g2&#xA;-D kha_g3&#xA;-D kha_g4&#xA;-D kha_a1&#xA;-D kha_a2&#xA;-D js-classic&#xA;-D kha&#xA;-D kha_version=1810&#xA;-D kha_project_name=voxel editor&#xA;-D kha_output=&quot;/home/redfill/Bureau/game dev/voxel editor/build/krom/krom.js.temp&quot;&#xA;arm.Cursor&#xA;--macro keep('arm.Cursor')&#xA;armory.trait.physics.bullet.PhysicsWorld&#xA;--macro keep('armory.trait.physics.bullet.PhysicsWorld')&#xA;armory.trait.physics.bullet.RigidBody&#xA;--macro keep('armory.trait.physics.bullet.RigidBody')&#xA;-debug&#xA;" />
 	</build>
 	<!-- haxelib libraries -->
 	<haxelib>
@@ -57,8 +57,8 @@
 	<!-- Other project options -->
 	<options>
 		<option showHiddenPaths="False" />
-		<option testMovie="Webserver" />
-		<option testMovieCommand="debug-html5/index.html" />
+		<option testMovie="Custom" />
+		<option testMovieCommand="run_krom.bat" />
 	</options>
 	<!-- Plugin storage -->
 	<storage />

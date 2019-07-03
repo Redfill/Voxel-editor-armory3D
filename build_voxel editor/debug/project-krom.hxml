@@ -10,6 +10,7 @@
 -cp /home/redfill/Documents/Armory/armsdk/armory
 -cp /home/redfill/Documents/Armory/armsdk/iron
 -cp /home/redfill/Documents/Armory/armsdk/lib/haxebullet
+-D hxcpp_smart_strings
 -D /home/redfill/Documents/Armory/armsdk/armory
 -D /home/redfill/Documents/Armory/armsdk/iron
 -D kex-vox-kha
@@ -18,13 +19,12 @@
 -D /home/redfill/Documents/Armory/armsdk/lib/haxebullet
 -D rp_renderer=Forward
 -D rp_background=Clear
--D rp_gi=Off
+-D arm_audio
 -D arm_physics
 -D arm_bullet
 -D arm_noembed
 -D arm_soundcompress
 -D arm_skin
--D arm_particles_gpu
 -D arm_particles
 -D sys_krom
 -D sys_g1
@@ -47,10 +47,10 @@
 -D kha_version=1810
 -D kha_project_name=voxel editor
 -js krom/krom.js.temp
-arm.Cursor
---macro keep('arm.Cursor')
-armory.trait.physics.bullet.RigidBody
---macro keep('armory.trait.physics.bullet.RigidBody')
 armory.trait.physics.bullet.PhysicsWorld
 --macro keep('armory.trait.physics.bullet.PhysicsWorld')
+armory.trait.physics.bullet.RigidBody
+--macro keep('armory.trait.physics.bullet.RigidBody')
+arm.Cursor
+--macro keep('arm.Cursor')
 -main Main
