@@ -1,1 +1,1 @@
-¬shader_datas‘‚¤name°downsample_depth¨contexts‘‰¤name°downsample_depth©constants‘ƒ¤type¤vec2¤name­screenSizeInv¤link®_screenSizeInv­texture_units‘¤name¨texdepth¯vertex_elements‘‚¤data¦float2¤name£pos­vertex_shader©pass.vert¯fragment_shaderµdownsample_depth.frag«depth_writeÂ¬compare_mode¦always©cull_mode¤none
+¬shader_datas

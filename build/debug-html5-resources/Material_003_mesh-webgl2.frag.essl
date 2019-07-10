@@ -2,26 +2,19 @@
 precision mediump float;
 precision highp int;
 
-uniform highp sampler2D ImageTexture;
+uniform highp vec3 DiffuseBSDFColor;
 
-in highp vec2 texCoord;
 out highp vec4 fragColor;
 
 void main()
 {
-    highp vec3 TextureCoordinate_001_texread_UV_res = vec3(texCoord.x, 1.0 - texCoord.y, 0.0);
-    highp vec3 Mapping_texread_Vector_res = TextureCoordinate_001_texread_UV_res;
-    highp vec4 ImageTexture_texread_store = texture(ImageTexture, vec2(Mapping_texread_Vector_res.x, 1.0 - Mapping_texread_Vector_res.y));
-    highp vec3 _47 = pow(ImageTexture_texread_store.xyz, vec3(2.2000000476837158203125));
-    ImageTexture_texread_store = vec4(_47.x, _47.y, _47.z, ImageTexture_texread_store.w);
-    highp vec3 ImageTexture_Color_res = ImageTexture_texread_store.xyz;
-    highp vec3 basecol = ImageTexture_Color_res;
-    highp float roughness = 1.0;
+    highp vec3 basecol = DiffuseBSDFColor;
+    highp float roughness = 0.0;
     highp float metallic = 0.0;
     highp float occlusion = 1.0;
-    highp float specular = 1.0;
+    highp float specular = 0.0;
     fragColor = vec4(basecol, 1.0);
-    highp vec3 _70 = pow(fragColor.xyz, vec3(0.4545454680919647216796875));
-    fragColor = vec4(_70.x, _70.y, _70.z, fragColor.w);
+    highp vec3 _32 = pow(fragColor.xyz, vec3(0.4545454680919647216796875));
+    fragColor = vec4(_32.x, _32.y, _32.z, fragColor.w);
 }
 

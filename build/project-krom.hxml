@@ -6,26 +6,24 @@
 -cp /home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-kha
 -cp /home/redfill/Bureau/game dev/voxel editor/Libraries/haxe-format-vox
 -cp /home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-iron
--cp /home/redfill/Documents/Armory/armsdk/lib/haxebullet/Sources
+-cp /home/redfill/Documents/Armory/armsdk/lib/zui/Sources
 -cp /home/redfill/Documents/Armory/armsdk/armory
 -cp /home/redfill/Documents/Armory/armsdk/iron
--cp /home/redfill/Documents/Armory/armsdk/lib/haxebullet
+-cp /home/redfill/Documents/Armory/armsdk/lib/zui
 -D hxcpp_smart_strings
 -D /home/redfill/Documents/Armory/armsdk/armory
 -D /home/redfill/Documents/Armory/armsdk/iron
 -D kex-vox-kha
 -D haxe-format-vox
 -D kex-vox-iron
--D /home/redfill/Documents/Armory/armsdk/lib/haxebullet
+-D /home/redfill/Documents/Armory/armsdk/lib/zui
 -D rp_renderer=Forward
 -D rp_background=Clear
--D arm_audio
--D arm_physics
--D arm_bullet
+-D kha_no_ogg
 -D arm_noembed
 -D arm_soundcompress
--D arm_skin
--D arm_particles
+-D arm_debug
+-D arm_ui
 -D sys_krom
 -D sys_g1
 -D sys_g2
@@ -50,9 +48,10 @@
 -js krom/krom.js.temp
 arm.Cursor
 --macro keep('arm.Cursor')
-armory.trait.physics.bullet.PhysicsWorld
---macro keep('armory.trait.physics.bullet.PhysicsWorld')
-armory.trait.physics.bullet.RigidBody
---macro keep('armory.trait.physics.bullet.RigidBody')
+armory.trait.internal.DebugConsole
+--macro keep('armory.trait.internal.DebugConsole')
+armory.trait.internal.Bridge
+--macro keep('armory.trait.internal.Bridge')
+--times
 -debug
 -main Main

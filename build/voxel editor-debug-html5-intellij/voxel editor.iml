@@ -23,7 +23,7 @@
       <sourceFolder url="file:///home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-kha" isTestSource="false" />
       <sourceFolder url="file:///home/redfill/Bureau/game dev/voxel editor/Libraries/haxe-format-vox" isTestSource="false" />
       <sourceFolder url="file:///home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-iron" isTestSource="false" />
-      <sourceFolder url="file:///home/redfill/Documents/Armory/armsdk/lib/haxebullet/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/redfill/Documents/Armory/armsdk/lib/zui/Sources" isTestSource="false" />
 
     </content>
     <content url="file:///home/redfill/Documents/Armory/armsdk/armory">
@@ -41,8 +41,8 @@
     <content url="file://Libraries/kex-vox-iron">
       <sourceFolder url="file:///home/redfill/Bureau/game dev/voxel editor/Libraries/kex-vox-iron" isTestSource="false" />
     </content>
-    <content url="file:///home/redfill/Documents/Armory/armsdk/lib/haxebullet">
-      <sourceFolder url="file:///home/redfill/Documents/Armory/armsdk/lib/haxebullet" isTestSource="false" />
+    <content url="file:///home/redfill/Documents/Armory/armsdk/lib/zui">
+      <sourceFolder url="file:///home/redfill/Documents/Armory/armsdk/lib/zui" isTestSource="false" />
     </content>
     
     <orderEntry type="jdk" jdkName="Haxe 3.2.0" jdkType="Haxe toolkit" />
