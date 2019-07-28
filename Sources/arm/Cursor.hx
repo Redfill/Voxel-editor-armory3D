@@ -22,22 +22,26 @@ import iron.math.RayCaster;
 class Cursor extends iron.Trait {
 	
 	var XR = 0.0;
-	var ZR = (Math.PI*2)/2;
+	var ZR = (Math.PI)/3;
 	var F = 20.0;
 	var DX = 0.0;
 	var DY = 0.0;
 	var DZ = 0.0;
 	var grid:Array<Array<Array<Int> > > = [for (x in 0...10) [for (y in 0...10)  [for (z in 0...10)0]    ]          ];
-	var Bgrid:Array<Array<Array<Int> > > = [for (x in 0...10) [for (y in 0...10)  [for (z in 0...10)0]    ]          ];
+	var Bgrid = [for (x in 0...10) [for (y in 0...10)  [for (z in 0...10)[0,0,0,0,0,0,0]]    ]          ];
 	var vox = Scene.active.getMesh("cube");
+	
 
-	function setbox(x,y,z,face){
+	function setbox(x,y,z,x2,y2,z2,face){
 		Scene.active.spawnObject(face.name,vox, function(o:Object){
 			object = o;
 			object.name = face.name +Std.string([x,y,z])+"v";
 			object.transform.loc.x = x;
 			object.transform.loc.y = y;
 			object.transform.loc.z = z;
+			object.transform.scale.x = (x2-x)+1;
+			object.transform.scale.y = (y2-y)+1;
+			object.transform.scale.z = (z2-z)+1;
 			object.visible = true;
 			//var rigidBody = object.getTrait(RigidBody);
 			//if (rigidBody != null) rigidBody.syncTransform();
@@ -84,6 +88,7 @@ class Cursor extends iron.Trait {
 	}
 
 	public function UpdateGrid(){
+		Bgrid = [for (x in 0...grid.length) [for (y in 0...grid.length)  [for (z in 0...grid.length)[0,0,0,0,0,0,0]]    ]          ];
 		var up = Scene.active.getMesh("up");
 		var down = Scene.active.getMesh("down");
 		var north = Scene.active.getMesh("north");
@@ -105,52 +110,310 @@ class Cursor extends iron.Trait {
 		for (b in buffer){
 			Scene.active.getMesh(b).remove();
 		}
-
+		
 		for (x in 0...(grid.length)) for (y in 0...(grid.length))  for (z in 0...(grid.length)){
 			if (grid[x][y][z] == 1){
 				if (grid[x][y][z] == 1){
 					if (x == 0){
-						setbox(x,y,z,south);
+						Bgrid[x][y][z][3] = 1;
 					}
 					else  if (grid[x-1][y][z] == 0){
-						setbox(x,y,z,south);
+						Bgrid[x][y][z][3] = 1;
 					}
 
 					if (x == grid.length-1){
-						setbox(x,y,z,north);
+						Bgrid[x][y][z][2] = 1;
+
 					}
 					else if (grid[x+1][y][z] == 0){
-						setbox(x,y,z,north);
+						Bgrid[x][y][z][2] = 1;
 					}
 
 					if (y == 0){
-						setbox(x,y,z,est);
+						Bgrid[x][y][z][4] = 1;
 					}
 					else if (grid[x][y-1][z] == 0){
-						setbox(x,y,z,est);
+						Bgrid[x][y][z][4] = 1;
 					}
 
 					if (y == grid.length-1){
-						setbox(x,y,z,west);
+						Bgrid[x][y][z][5] = 1;
 					}
 					else if (grid[x][y+1][z] == 0){
-						setbox(x,y,z,west);
+						Bgrid[x][y][z][5] = 1;
 					}
 
 					if (z != 0 && grid[x][y][z-1] ==0){
-						setbox(x,y,z,down);
+						Bgrid[x][y][z][1] = 1;
 					}
 
 					if (z == grid.length-1){
-						setbox(x,y,z,up);
+						//setbox(x,y,z,up);
+						Bgrid[x][y][z][0] = 1;
 					}
 					else if (grid[x][y][z+1] == 0){
-						setbox(x,y,z,up);
+						//setbox(x,y,z,up);
+						Bgrid[x][y][z][0] = 1;
 					}
 				}
 			}
 			
 		}
+		for (l in 0...2){
+			for (x in 0...(grid.length)) for (y in 0...(grid.length))  for (z in 0...(grid.length)){
+				Bgrid[x][y][z][6] = 0;
+			};
+				trace(l);
+			for (z in 0...(grid.length)){
+				for (x in 0...(grid.length)) for (y in 0...(grid.length)){
+					var s = [null,null,null];
+					var e = [null,null,null];
+					var step = 0;
+					var stop = 0;
+					var x2 = 0;
+					if (Bgrid[x][y][z][l] == 1 && Bgrid[x][y][z][6] == 0){
+						s = [x,y,z];
+						Bgrid[x][y][z][6] = 1;
+						for (xx in 1...(grid.length-x)){
+							if (Bgrid[x+xx][y][z][l] == 1 && Bgrid[x+xx][y][z][6] == 0 ){
+								e = [x+xx,y,z];
+								Bgrid[x+xx][y][z][6] = 1;
+							};
+							else{
+								if (e[0] == null){
+									//e = s;
+								};
+								break;
+								};
+						};
+						if (e[0] == null){
+							e[0] = s[0];
+						}
+						if (e[1] == null){
+							e[1] = s[1];
+						}
+						if (e[2] == null){
+							e[2] = s[2];
+						}
+						for (yy in 1...(grid.length-y+1)){
+							
+							for (xx in s[0]...e[0]+1){
+								
+								if (yy+y != grid.length){
+									if (Bgrid[xx][y+yy][z][l] == 0 || Bgrid[xx][y+yy][z][6] == 1){
+										stop = 1;
+										break;
+									};
+								};
+								else{
+									stop = 1;
+									break;
+								}
+							};
+
+							if (stop == 0){
+								for (xx in s[0]...e[0]+1){
+									// trace("apply x");
+									// trace(xx);
+									// trace(y+yy);
+									if (yy+y != grid.length){
+									Bgrid[xx][y+yy][z][6] = 1;
+									};
+									else{Bgrid[xx][y+yy-1][z][6] = 1;}
+								};
+							};
+							
+							if (stop == 1){
+								
+								e[1] = (y+yy)-1;
+								
+								break;
+							};
+						};
+						if (l == 1){
+							setbox(s[0],s[1],s[2],e[0],e[1],e[2],down);
+						};
+						if (l == 0){
+								setbox(s[0],s[1],s[2],e[0],e[1],e[2],up);
+						}
+						
+						trace("s" +s);
+						trace("e" +e);
+						trace("");
+
+					};
+				};
+			};
+		};
+		for (l in 4...6){
+			for (x in 0...(grid.length)) for (y in 0...(grid.length))  for (z in 0...(grid.length)){
+				Bgrid[x][y][z][6] = 0;
+			};
+				trace(l);
+			for (y in 0...(grid.length)){
+				for (x in 0...(grid.length)) for (z in 0...(grid.length)){
+					var s = [null,null,null];
+					var e = [null,null,null];
+					var step = 0;
+					var stop = 0;
+					var x2 = 0;
+					if (Bgrid[x][y][z][l] == 1 && Bgrid[x][y][z][6] == 0){
+						s = [x,y,z];
+						Bgrid[x][y][z][6] = 1;
+						for (xx in 1...(grid.length-x)){
+							if (Bgrid[x+xx][y][z][l] == 1 && Bgrid[x+xx][y][z][6] == 0 ){
+								e = [x+xx,y,z];
+								Bgrid[x+xx][y][z][6] = 1;
+							};
+							else{
+								break;
+							};
+						};
+						if (e[0] == null){
+							e[0] = s[0];
+						}
+						if (e[1] == null){
+							e[1] = s[1];
+						}
+						if (e[2] == null){
+							e[2] = s[2];
+						}
+						for (zz in 1...(grid.length-z+1)){
+							
+							for (xx in s[0]...e[0]+1){
+								
+								if (zz+z != grid.length){
+									if (Bgrid[xx][y][z+zz][l] == 0 || Bgrid[xx][y][z+zz][6] == 1){
+										stop = 1;
+										break;
+									};
+								};
+								else{
+									stop = 1;
+									break;
+								}
+							};
+
+							if (stop == 0){
+								for (xx in s[0]...e[0]+1){
+									// trace("apply x");
+									// trace(xx);
+									// trace(y+yy);
+									if (zz+z != grid.length){
+									Bgrid[xx][y][z+zz][6] = 1;
+									};
+									else{Bgrid[xx][y][z+zz-1][6] = 1;}
+								};
+							};
+							
+							if (stop == 1){
+								
+								e[2] = (z+zz)-1;
+								
+								break;
+							};
+						};
+						if (l == 5){
+							setbox(s[0],s[1],s[2],e[0],e[1],e[2],west);
+						};
+						if (l == 4){
+								setbox(s[0],s[1],s[2],e[0],e[1],e[2],est);
+						}
+						
+						trace("s" +s);
+						trace("e" +e);
+						trace("");
+
+					};
+				};
+			};
+		};
+		for (l in 2...4){
+			for (x in 0...(grid.length)) for (y in 0...(grid.length))  for (z in 0...(grid.length)){
+				Bgrid[x][y][z][6] = 0;
+			};
+				trace(l);
+			for (x in 0...(grid.length)){
+				for (y in 0...(grid.length)) for (z in 0...(grid.length)){
+					var s = [null,null,null];
+					var e = [null,null,null];
+					var step = 0;
+					var stop = 0;
+					var x2 = 0;
+					if (Bgrid[x][y][z][l] == 1 && Bgrid[x][y][z][6] == 0){
+						s = [x,y,z];
+						Bgrid[x][y][z][6] = 1;
+						for (yy in 1...(grid.length-y)){
+							if (Bgrid[x][y+yy][z][l] == 1 && Bgrid[x][y+yy][z][6] == 0 ){
+								e = [x,y+yy,z];
+								Bgrid[x][y+yy][z][6] = 1;
+							};
+							else{
+								break;
+							};
+						};
+						if (e[0] == null){
+							e[0] = s[0];
+						}
+						if (e[1] == null){
+							e[1] = s[1];
+						}
+						if (e[2] == null){
+							e[2] = s[2];
+						}
+						for (zz in 1...(grid.length-z+1)){
+							
+							for (yy in s[1]...e[1]+1){
+								
+								if (zz+z != grid.length){
+									if (Bgrid[x][yy][z+zz][l] == 0 || Bgrid[x][yy][z+zz][6] == 1){
+										stop = 1;
+										break;
+									};
+								};
+								else{
+									stop = 1;
+									break;
+								}
+							};
+
+							if (stop == 0){
+								for (yy in s[1]...e[1]+1){
+									// trace("apply x");
+									// trace(xx);
+									// trace(y+yy);
+									if (zz+z != grid.length){
+									Bgrid[x][yy][z+zz][6] = 1;
+									};
+									else{Bgrid[x][yy][z+zz-1][6] = 1;}
+								};
+							};
+							
+							if (stop == 1){
+								
+								e[2] = (z+zz)-1;
+								
+								break;
+							};
+						};
+						if (l == 3){
+							setbox(s[0],s[1],s[2],e[0],e[1],e[2],south);
+						};
+						if (l == 2){
+								setbox(s[0],s[1],s[2],e[0],e[1],e[2],north);
+						}
+						
+						trace("s" +s);
+						trace("e" +e);
+						trace("");
+
+					};
+				};
+			};
+		};
+		
+		trace("");
+
 		//trace(Scene.active.meshes[0].);
 	}
 
@@ -231,14 +494,15 @@ class Cursor extends iron.Trait {
 		}
 
 		if (type == 0){
+			trace(cam.transform.rot.getEuler());
 			XR += mo.movementX*0.005;
 			ZR -= mo.movementY*0.005;
 			if (ZR < 0 ){
 				ZR = 0.000000001;
 			}
-			// if (ZR > (Math.PI/2)){
-			// 	ZR = (Math.PI/2)+0.000001;
-			// }
+			if (ZR > (Math.PI/2)){
+			ZR = (Math.PI/2)+0.000001;
+			}
 
 			//rot.x = ZR;//+ mo.movementY*0.005;
 			//rot.z = ZR ;
@@ -275,11 +539,13 @@ class Cursor extends iron.Trait {
 	}
 	public function SetGrid(size:Int){
 		grid = [for (x in 0...size) [for (y in 0...size)  [for (z in 0...size)1]    ]          ];
-		Bgrid = [for (x in 0...size) [for (y in 0...size)  [for (z in 0...size)1]    ]          ];
+		Bgrid = [for (x in 0...size) [for (y in 0...size)  [for (z in 0...size)[0,0,0,0,0,0,0]]    ]          ];
 		UpdateGrid();
 		
 		Nav(3);
 	}
+	
+	
 	public function new() {
 		//var grid:Array<Array<Array<Int> > > = [for (x in 0...10) [for (y in 0...10)  [for (z in 0...10)0]    ]          ];
 		

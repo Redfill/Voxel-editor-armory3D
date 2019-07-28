@@ -1,0 +1,45 @@
+// for (x in 0...(grid.length)) for (y in 0...(grid.length))  for (z in 0...(grid.length)){
+		// 	if (grid[x][y][z] == 1){
+		// 		if (grid[x][y][z] == 1){
+		// 			if (x == 0){
+		// 				setbox(x,y,z,south);
+		// 			}
+		// 			else  if (grid[x-1][y][z] == 0){
+		// 				setbox(x,y,z,south);
+		// 			}
+
+		// 			if (x == grid.length-1){
+		// 				setbox(x,y,z,north);
+		// 			}
+		// 			else if (grid[x+1][y][z] == 0){
+		// 				setbox(x,y,z,north);
+		// 			}
+
+		// 			if (y == 0){
+		// 				setbox(x,y,z,est);
+		// 			}
+		// 			else if (grid[x][y-1][z] == 0){
+		// 				setbox(x,y,z,est);
+		// 			}
+
+		// 			if (y == grid.length-1){
+		// 				setbox(x,y,z,west);
+		// 			}
+		// 			else if (grid[x][y+1][z] == 0){
+		// 				setbox(x,y,z,west);
+		// 			}
+
+		// 			if (z != 0 && grid[x][y][z-1] ==0){
+		// 				setbox(x,y,z,down);
+		// 			}
+
+		// 			if (z == grid.length-1){
+		// 				setbox(x,y,z,up);
+		// 			}
+		// 			else if (grid[x][y][z+1] == 0){
+		// 				setbox(x,y,z,up);
+		// 			}
+		// 		}
+		// 	}
+			
+		// }
